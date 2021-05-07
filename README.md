@@ -19,6 +19,7 @@ Order class is the super class
 
 **Attributes:**
 PriorityQueue<BuyOrder> buyOrders : To store the BuyOrders on the basis of max price priority and then time priority
+
 PriorityQueue<SellOrder> sellOrders : To store the SellOrders on the basis of max price priority and then time priority
   
 ### [addOrders()](https://github.com/ChayanikaMisra/StockExchange/blob/master/src/main/java/com/stockExchange/services/StockExchangeService.java#L25)
