@@ -24,7 +24,7 @@ public class StockExchangeService {
 
     public void addOrders() {
         try {
-            File ordersFile = new File("src/main/java/com/stockExchange/filename.txt");
+            File ordersFile = new File("src/main/java/com/stockExchange/stockexchangeorders.txt");
             Scanner ordersReader = new Scanner(ordersFile);
             while (ordersReader.hasNextLine()) {
                 String[] data = ordersReader.nextLine().split(" ");
@@ -34,26 +34,20 @@ public class StockExchangeService {
                 String type = data[3];
                 float price = Float.parseFloat(data[4]);
                 int quantity = Integer.parseInt(data[5]);
-
-                matchOrders(orderId, time, stock, type, price, quantity);
+                if (type.equals("buy")) {
+                    BuyOrder buyOrder = new BuyOrder(orderId, time, stock, type, price, quantity);
+                    matchBuyOrder(buyOrder);
+                }
+                if (type.equals("sell")) {
+                    SellOrder sellOrder = new SellOrder(orderId, time, stock, type, price, quantity);
+                    matchSellOrder(sellOrder);
+                }
             }
             ordersReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Please add the stock orders file at location: src/main/java/com/stockExchange/");
             e.printStackTrace();
         }
-    }
-
-    private void matchOrders(String orderId, LocalTime time, String stock, String type, float price, int quantity) {
-        if (type.equals("buy")) {
-            BuyOrder buyOrder = new BuyOrder(orderId, time, stock, type, price, quantity);
-            matchBuyOrder(buyOrder);
-        }
-        if (type.equals("sell")) {
-            SellOrder sellOrder = new SellOrder(orderId, time, stock, type, price, quantity);
-            matchSellOrder(sellOrder);
-        }
-
     }
 
 
